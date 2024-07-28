@@ -1,0 +1,53 @@
+﻿@using BookLibrary.Web.Dtos
+
+@model List<ResultBookDto>
+
+<p>Bu sayfa BookLibrary/Index sayfasıdır.</p>
+<a asp-controller="BookLibrary" asp-action="Create">Oluştur</a>
+<table class="table" id="example" style="width:100%">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ad</th>
+            <th scope="col">Yazar</th>
+            <th scope="col">Durum</th>
+            <th scope="col">###</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var tableclass = "";
+            if (item.Status == 1)
+            {
+                tableclass = "table-success";
+            }
+            if (item.Status == 0)
+            {
+                tableclass = "table-danger";
+            }
+            <tr class="@tableclass">
+                <th scope="row">@item.Id</th>
+                <td>@item.Name</td>
+                <td>@item.Author</td>
+                @if (item.Status == 1)
+                {
+                    <td>Var</td>
+                }
+                @if (item.Status == 0)
+                {
+                    <td>Yok</td>
+                }
+                @if (item.Status != 0 && item.Status != 1)
+                {
+                    <td>@item.Status</td>
+                }
+                <td>
+                    <a asp-controller="BookLibrary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+                    <a asp-controller="BookLibrary" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

@@ -1,4 +1,4 @@
-﻿namespace BookLibrary.Api.Repositories;
+﻿namespace BookLibrary.Web.Repositories;
 
 public interface IRepository<T> where T : class
 {

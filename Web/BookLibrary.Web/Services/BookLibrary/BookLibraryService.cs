@@ -1,14 +1,14 @@
-﻿using BookLibrary.Api.Dtos;
-using BookLibrary.Api.Models;
-using BookLibrary.Api.Repositories;
+﻿using BookLibrary.Web.Dtos;
+using BookLibrary.Web.Models;
+using BookLibrary.Web.Repositories;
 
-namespace BookLibrary.Api.Services.BookLibrary;
+namespace BookLibrary.Web.Services.BookLibrary;
 
-public class BookLibraryServices : IBookLibraryServices
+public class BookLibraryService : IBookLibraryService
 {
     private readonly IRepository<Book> _repository;
 
-    public BookLibraryServices(IRepository<Book> repository)
+    public BookLibraryService(IRepository<Book> repository)
     {
         _repository = repository;
     }
@@ -23,6 +23,7 @@ public class BookLibraryServices : IBookLibraryServices
         };
         await _repository.CreateAsync(book);
     }
+
 
     public async Task DeleteBookAsync(int id)
     {
@@ -49,10 +50,11 @@ public class BookLibraryServices : IBookLibraryServices
         {
             return new GetByIdBookDto();
         }
-        return new GetByIdBookDto { 
-            Author = value.Author, 
+        return new GetByIdBookDto
+        {
+            Author = value.Author,
             Id = value.Id,
-            Name= value.Name,
+            Name = value.Name,
             Status = value.Status
         };
     }
@@ -65,4 +67,6 @@ public class BookLibraryServices : IBookLibraryServices
         value.Status = model.Status;
         await _repository.UpdateAsync(value);
     }
+
 }
+
